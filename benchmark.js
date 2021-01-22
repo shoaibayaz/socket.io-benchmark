@@ -2,7 +2,7 @@ const io = require('socket.io-client');
 
 const message = "Testing Message";
 
-function user(shouldBroadcast, host, port) {
+function user(host, port) {
     const socket = io.connect('http://' + host + ':' + port, {
         'forceNew': true,
         'transports': ['websocket']
@@ -20,14 +20,13 @@ function user(shouldBroadcast, host, port) {
 };
 
 
-const users = 1000;
-const newUserTimeout = 0;
-const shouldBroadcast = true;
+const users = 100000;
+const newUserTimeout = 500;
 const host = 'localhost';
 const port = '3000';
 
 for (let i = 0; i < users; i++) {
     setTimeout(() => {
-        user(shouldBroadcast, host, port);
-    }, i * newUserTimeout);
+        user(host, port);
+    }, newUserTimeout);
 };
